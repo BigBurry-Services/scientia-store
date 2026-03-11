@@ -22,7 +22,10 @@ export default async function configureStore({ container }: ExecArgs) {
                         name: "India",
                         currency_code: "inr",
                         countries: ["in"],
-                        payment_providers: ["pp_system_default"],
+                        payment_providers: [
+                            "pp_system_default",
+                            "pp_razorpay_razorpay",
+                        ],
                     },
                 ],
             },
