@@ -1,5 +1,5 @@
 import { defineWidgetConfig } from "@medusajs/admin-sdk"
-import { Button, Container, Heading, Text } from "@medusajs/ui"
+import { Container, Heading, Text } from "@medusajs/ui"
 
 type ProductWidgetData = {
   id?: string
@@ -7,29 +7,16 @@ type ProductWidgetData = {
 }
 
 const ProductDigitalAssetsLink = ({ data }: { data: ProductWidgetData }) => {
-  const productId = data?.id
-
-  const openManager = () => {
-    if (!productId) {
-      return
-    }
-
-    window.location.assign(`/app/digital-assets?product_id=${productId}`)
-  }
-
   return (
     <Container className="p-4">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <Heading level="h2">Digital Assets</Heading>
-          <Text className="text-ui-fg-subtle">
-            Attach downloadable files to this product&apos;s variants.
-          </Text>
-        </div>
-        <Button type="button" onClick={openManager} disabled={!productId}>
-          Manage Digital Assets
-        </Button>
-      </div>
+      <Heading level="h2">Digital Assets</Heading>
+      <Text className="text-ui-fg-subtle">
+        Manage files directly in each variant page. Open a variant from this
+        product to upload and attach downloadable assets.
+      </Text>
+      {data?.title && (
+        <Text className="text-ui-fg-muted mt-1">Product: {data.title}</Text>
+      )}
     </Container>
   )
 }

@@ -48,7 +48,11 @@ export async function POST(
     })
   }
 
-  const link = await service.attachAssetToVariant({
+  const existingLinks = await service.listVariantDigitalAssetLinks({
+    variant_id,
+  })
+
+  const link = await service.setAssetForVariant({
     digital_asset_id: id,
     variant_id,
   })
@@ -65,10 +69,40 @@ export async function POST(
 
   res.status(200).json({
     variant_link: link,
+    replaced_asset_count: existingLinks.filter(
+      (link) => link.digital_asset_id !== id
+    ).length,
     variant: {
       id: variant.id,
       title: variant.title,
     },
     product: products?.[0] ?? null,
+  })
+}
+
+export async function DELETE(
+  req: MedusaRequest<AttachVariantBody>,
+  res: MedusaResponse
+) {
+  const service: DigitalAssetModuleService = req.scope.resolve(
+    DIGITAL_ASSET_MODULE
+  )
+
+  const { id } = req.params
+  const { variant_id } = req.body
+
+  if (!variant_id) {
+    return res.status(400).json({
+      message: "`variant_id` is required.",
+    })
+  }
+
+  const removedCount = await service.detachAssetFromVariant({
+    digital_asset_id: id,
+    variant_id,
+  })
+
+  return res.status(200).json({
+    removed_count: removedCount,
   })
 }

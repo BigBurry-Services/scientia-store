@@ -7,6 +7,10 @@ export default defineMiddlewares({
       middlewares: [authenticate("user", ["session", "bearer", "api-key"])],
     },
     {
+      matcher: "/admin/product-variants/:id/digital-assets*",
+      middlewares: [authenticate("user", ["session", "bearer", "api-key"])],
+    },
+    {
       matcher: "/store/digital-assets/my-downloads",
       middlewares: [authenticate("customer", ["session", "bearer"])],
     },

@@ -6,6 +6,25 @@ class DigitalAssetModuleService extends MedusaService({
   DigitalAsset,
   VariantDigitalAssetLink,
 }) {
+  async setAssetForVariant(input: {
+    digital_asset_id: string
+    variant_id: string
+  }) {
+    const existingForVariant = await this.listVariantDigitalAssetLinks({
+      variant_id: input.variant_id,
+    })
+
+    if (existingForVariant.length) {
+      await this.deleteVariantDigitalAssetLinks(
+        existingForVariant.map((link) => link.id)
+      )
+    }
+
+    const created = await this.createVariantDigitalAssetLinks([input])
+
+    return created[0]
+  }
+
   async attachAssetToVariant(input: {
     digital_asset_id: string
     variant_id: string
@@ -24,6 +43,24 @@ class DigitalAssetModuleService extends MedusaService({
     const created = await this.createVariantDigitalAssetLinks([input])
 
     return created[0]
+  }
+
+  async detachAssetFromVariant(input: {
+    digital_asset_id: string
+    variant_id: string
+  }) {
+    const links = await this.listVariantDigitalAssetLinks({
+      digital_asset_id: input.digital_asset_id,
+      variant_id: input.variant_id,
+    })
+
+    if (!links.length) {
+      return 0
+    }
+
+    await this.deleteVariantDigitalAssetLinks(links.map((link) => link.id))
+
+    return links.length
   }
 
   async listAssetsForVariantIds(variantIds: string[]) {
