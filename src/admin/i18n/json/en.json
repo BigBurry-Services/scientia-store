@@ -1,0 +1,15 @@
+{
+  "login": {
+    "title": "Welcome to Scientia Store"
+  },
+  "invite": {
+    "title": "Welcome to Scientia Store",
+    "successHint": "Get started with Scientia Store Admin right away.",
+    "successAction": "Start Scientia Store Admin"
+  },
+  "auth": {
+    "login": {
+      "cloud": "Log in with Scientia Cloud"
+    }
+  }
+}

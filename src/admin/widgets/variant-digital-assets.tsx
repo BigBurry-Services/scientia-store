@@ -268,15 +268,17 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
   }
 
   return (
-    <Container className="p-4">
-      <div className="flex items-start justify-between gap-4">
+    <Container className="p-5">
+      <div className="flex items-start justify-between gap-4 border-b border-ui-border-base pb-4">
         <div>
-          <Heading level="h2">Digital Assets</Heading>
-          <Text className="text-ui-fg-subtle">
+          <Heading level="h2" className="text-ui-fg-base">
+            Digital Assets
+          </Heading>
+          <Text className="mt-1 text-ui-fg-subtle">
             Upload and attach downloadable files directly to this variant.
           </Text>
           {data?.title && (
-            <Text className="text-ui-fg-muted mt-1">
+            <Text className="mt-2 text-ui-fg-muted">
               Variant: {data.title}
               {data.sku ? ` (${data.sku})` : ""}
             </Text>
@@ -288,7 +290,7 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
       </div>
 
       {message && (
-        <Container className="mt-4 border border-ui-border-base p-3">
+        <Container className="mt-4 border border-emerald-300 bg-emerald-50 p-3">
           <Text>{message}</Text>
         </Container>
       )}
@@ -299,10 +301,12 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
         </Container>
       )}
 
-      <div className="mt-4 grid gap-3">
+      <div className="mt-5 rounded-rounded border border-ui-border-base p-4">
         <Heading level="h3">Shipping Requirement</Heading>
         <div className="flex items-center justify-between">
-          <Label htmlFor="variant-requires-shipping">Requires shipping</Label>
+          <Label htmlFor="variant-requires-shipping" className="text-ui-fg-base">
+            Requires shipping
+          </Label>
           <input
             id="variant-requires-shipping"
             type="checkbox"
@@ -312,12 +316,12 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
           />
         </div>
         {!hasInventoryItem && (
-          <Text className="text-ui-fg-subtle">
+          <Text className="mt-2 text-ui-fg-subtle">
             This variant has no inventory item yet. Enable inventory tracking
             on the variant first, then this toggle will be editable.
           </Text>
         )}
-        <div>
+        <div className="mt-3">
           <Button
             type="button"
             variant="secondary"
@@ -330,7 +334,10 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
         </div>
       </div>
 
-      <form className="mt-4 grid gap-3" onSubmit={handleUploadAndAttach}>
+      <form
+        className="mt-5 grid gap-3 rounded-rounded border border-ui-border-base p-4"
+        onSubmit={handleUploadAndAttach}
+      >
         <Heading level="h3">Upload and Attach</Heading>
         <div className="grid gap-2">
           <Label htmlFor="variant-asset-title">Asset title</Label>
@@ -360,7 +367,10 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
         </Text>
       </form>
 
-      <form className="mt-6 grid gap-3" onSubmit={handleAttachExisting}>
+      <form
+        className="mt-5 grid gap-3 rounded-rounded border border-ui-border-base p-4"
+        onSubmit={handleAttachExisting}
+      >
         <Heading level="h3">Attach Existing Asset</Heading>
         <div className="grid gap-2">
           <Label htmlFor="variant-existing-asset">Digital asset</Label>
@@ -387,14 +397,19 @@ const VariantDigitalAssetsWidget = ({ data }: { data: VariantWidgetData }) => {
         </Text>
       </form>
 
-      <div className="mt-6 grid gap-2">
+      <div className="mt-5 rounded-rounded border border-ui-border-base p-4">
         <Heading level="h3">Attached to This Variant</Heading>
         {!attachedAssets.length ? (
-          <Text className="text-ui-fg-subtle">No digital assets attached yet.</Text>
+          <Text className="mt-2 text-ui-fg-subtle">
+            No digital assets attached yet.
+          </Text>
         ) : (
-          <div className="grid gap-2">
+          <div className="mt-3 grid gap-2">
             {attachedAssets.map((asset) => (
-              <Container key={asset.id} className="border border-ui-border-base p-3">
+              <Container
+                key={asset.id}
+                className="rounded-rounded border border-ui-border-base p-3"
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <Text>
